@@ -18,6 +18,40 @@ var paddleX = (canvas.width-paddleWidth)/2;
 var rightPressed = false;
 var leftPressed = false;
 
+//Bricks and brick loop: Defined placement of bricks
+var brickRowCount = 3;
+var brickColumnCount = 5;
+var brickWidth = 20;
+var brickPadding = 10;
+var brickOffsetTop = 30;
+var brickOffsetLeft = 30;
+
+//Creates more than one brick/ adds breaking collision
+var bricks = [];
+for(c=0; c<brickColumnCount; c++) {
+  bricks[c] = [];
+  for(r=0; r<brickRowCount; r++) {
+    bricks[c][r] = { x: 0, y: 0 };
+  }
+}
+
+//Draws the bricks on the screen
+function drawBricks() {
+  for(c=0; c<brickColumnCount; c++){
+    for(r=0; r<brickRowCount; r++) {
+      var brickX = (c*(brickWidth+brickPadding))+brick-OffsetLeft;
+      var brickY = (r*(brickHeight+brickPadding))+brickOffsetTop;
+      bricks[c][r].x = 0;
+      bricks[c][r].y = 0;
+      ctx.beginPath();
+      ctx.rect(0, 0, brickWidth, brickHeight);
+      ctx.fillStyle = "Black";
+      ctx.fill();
+      ctx.closePath();
+    }
+  }
+}
+
 //Buttons used to move the paddle
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
@@ -52,6 +86,7 @@ function drawBall() {
 //collision to the borders
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawBricks();
   drawBall();
   drawPaddle();
 
