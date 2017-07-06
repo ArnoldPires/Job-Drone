@@ -29,27 +29,27 @@ var brickOffsetLeft = 30;
 //Creates more than one brick/ adds breaking collision
 var bricks = [];
 for(c=0; c<brickColumnCount; c++) {
-  bricks[c] = [];
-  for(r=0; r<brickRowCount; r++) {
-    bricks[c][r] = { x: 0, y: 0 };
-  }
+    bricks[c] = [];
+    for(r=0; r<brickRowCount; r++) {
+        bricks[c][r] = { x: 0, y: 0 };
+    }
 }
 
 //Draws the bricks on the screen
 function drawBricks() {
-  for(c=0; c<brickColumnCount; c++){
-    for(r=0; r<brickRowCount; r++) {
-      var brickX = (c*(brickWidth+brickPadding))+brick-OffsetLeft;
-      var brickY = (r*(brickHeight+brickPadding))+brickOffsetTop;
-      bricks[c][r].x = 0;
-      bricks[c][r].y = 0;
-      ctx.beginPath();
-      ctx.rect(0, 0, brickWidth, brickHeight);
-      ctx.fillStyle = "Black";
-      ctx.fill();
-      ctx.closePath();
+    for(c=0; c<brickColumnCount; c++) {
+        for(r=0; r<brickRowCount; r++) {
+            var brickX = (c*(brickWidth+brickPadding))+brickOffsetLeft;
+            var brickY = (r*(brickHeight+brickPadding))+brickOffsetTop;
+            bricks[c][r].x = brickX;
+            bricks[c][r].y = brickY;
+            ctx.beginPath();
+            ctx.rect(brickX, brickY, brickWidth, brickHeight);
+            ctx.fillStyle = "#0095DD";
+            ctx.fill();
+            ctx.closePath();
+        }
     }
-  }
 }
 
 //Buttons used to move the paddle
@@ -58,21 +58,22 @@ document.addEventListener("keyup", keyUpHandler, false);
 
 //The logic of being able to move the paddle from left to right
 function keyDownHandler(e) {
-  if(e.keyCode == 39){
-    rightPressed = true;
-  }
-  else if(e.keyCode == 37){
-    leftPressed = true;
-  }
+    if(e.keyCode == 39) {
+        rightPressed = true;
+    }
+    else if(e.keyCode == 37) {
+        leftPressed = true;
+    }
 }
 function keyUpHandler(e) {
-  if(e.keyCode == 39) {
-    rightPressed = false;
-  }
-  else if(e.keyCode == 37) {
-    leftPressed = false;
-  }
+    if(e.keyCode == 39) {
+        rightPressed = false;
+    }
+    else if(e.keyCode == 37) {
+        leftPressed = false;
+    }
 }
+
 
 //What the ball should look like and where should it be placed
 function drawBall() {
@@ -96,11 +97,14 @@ function draw() {
   //If the ball hits the bottom, the game will trigger a "GAME OVER" popup box
   if(y + dy < ballRadius) {
     dy = -dy;
-  } else if(y +dy > canvas.height-ballRadius) {
+  }
+  else if(y +dy > canvas.height-ballRadius) {
       if(x > paddleX && x < paddleX + paddleWidth) {
-        dy = -dy;
+        if(y= y-paddleHeight){
+          dy = -dy ;
+                      }
       }
-      else{
+      else {
         alert("GAME OVER");
         document.location.reload();
       }
@@ -112,6 +116,7 @@ function draw() {
   else if (leftPressed && paddleX > 0) {
     paddleX -= 7;
   }
+
   x += dx;
   y += dy;
 }
