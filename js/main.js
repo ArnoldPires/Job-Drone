@@ -7,7 +7,7 @@ var x = canvas.width/2;
 var y = canvas.height-30;
 var dx = 2;
 var dy = -2;
-var ballRadius = 10;
+var ballRadius = 5;
 
 //Defining the paddle
 var paddleHeight = 10;
@@ -21,9 +21,10 @@ var leftPressed = false;
 //Bricks and brick loop: Defined placement of bricks
 var brickRowCount = 3;
 var brickColumnCount = 5;
-var brickWidth = 20;
+var brickWidth = 40;
+var brickHeight = 10;
 var brickPadding = 10;
-var brickOffsetTop = 30;
+var brickOffsetTop = 10;
 var brickOffsetLeft = 30;
 
 //Creates more than one brick/ adds breaking collision
@@ -98,7 +99,7 @@ function draw() {
   if(y + dy < ballRadius) {
     dy = -dy;
   }
-  else if(y +dy > canvas.height-ballRadius) {
+  else if(y + dy > canvas.height-ballRadius) {
       if(x > paddleX && x < paddleX + paddleWidth) {
         if(y= y-paddleHeight){
           dy = -dy ;
